@@ -27,7 +27,12 @@ git clone https://github.com/aozora0000/shell_deployment_bitbucket.git ./service
 chmod -R 644 ./service/*
 
 vi ./service/deploy #設定は下記を参照
-nohup ./service/deploy &
+nohup ./service/deploy & echo $! > ./service/deploy.pid
+```
+
+## 止め方
+```
+kill $(cat ./service/deploy.pid)
 ```
 
 ## .gitignore追加
