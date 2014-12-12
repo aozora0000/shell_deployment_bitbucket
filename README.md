@@ -29,6 +29,10 @@ chmod -R 644 ./service/*
 vi ./service/deploy #設定は下記を参照
 nohup ./service/deploy &
 ```
+
+## .gitignore追加
+本体アプリケーション側のgitに入らない様に、.gitignoreにserviceディレクトリを追加してください。
+
 ## 設定 (./service/deploy)
 ### [bitbucket](https://bitbucket.org/)の設定
 ```
