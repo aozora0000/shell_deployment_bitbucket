@@ -1,0 +1,19 @@
+#!/bin/bash
+function checkRepos() {
+    curl -s -X GET -u $USER:$PASS \
+    https://api.bitbucket.org/2.0/repositories/$OWNER/$REPOS | jq -r '.updated_on'
+};
+
+function utc2JST() {
+    date -d $TMPTIMESTAMP +'%s'
+}
+
+function toIdobata() {
+    curl -s --data-urlencode "source=${DEPLOY_MESSAGE}" -d format=html $IDOBATA_ENDPOINT
+}
+
+function deployment() {
+    git fetch origin
+    git merge origin/master
+    composer update --prefer-dist
+}

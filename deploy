@@ -1,0 +1,47 @@
+#!/bin/bash
+################################
+# Bitbucket Setting
+################################
+OWNER=""            #bitbucketのオーナー名
+REPOS=""            #bitbucketのリポジトリ名
+USER=""             #bitbucketのユーザー名
+PASS=""             #bitbucketのパスワード名
+
+################################
+# Apps Setting
+################################
+CYCLETIME=300       #リポジトリ監視間隔
+SOURCE_PATH=./      #.gitのあるディレクトリ
+
+################################
+# Idobata Setting
+################################
+IDOBATA_ENDPOINT="" #idobataのエンドポイントURL
+DEPLOY_MESSAGE='<span class="label label-success">success</span><br>デプロイ完了しました。'
+
+################################
+# Lastupdate Setting
+################################
+LAST_PATH=./service/lastupdate
+LASTUPDATE=$(cat $LAST_PATH)
+
+################################
+# Resource Include
+################################
+source ./service/functions
+
+################################
+# MainScript
+################################
+
+while true
+do
+    TMPTIMESTAMP=$(checkRepos)
+    GETTIMESTAMP=$(utc2JST)
+    if test $LASTUPDATE -lt $GETTIMESTAMP; then
+        deployment
+        echo $GETTIMESTAMP > $LAST_PATH
+        toIdobata
+    fi
+    sleep $CYCLETIME
+done
