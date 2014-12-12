@@ -27,7 +27,7 @@ git clone https://github.com/aozora0000/shell_deployment_bitbucket.git ./service
 chmod -R 644 ./service/*
 
 vi ./service/deploy #設定は下記を参照
-./service/deploy &
+nohup ./service/deploy &
 ```
 ## 設定 (./service/deploy)
 ### [bitbucket](https://bitbucket.org/)の設定
