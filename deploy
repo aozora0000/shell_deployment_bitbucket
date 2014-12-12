@@ -23,7 +23,6 @@ DEPLOY_MESSAGE='<span class="label label-success">success</span><br>デプロイ
 # Lastupdate Setting
 ################################
 LAST_PATH=./service/lastupdate
-LASTUPDATE=$(cat $LAST_PATH)
 
 ################################
 # Resource Include
@@ -36,10 +35,12 @@ source ./service/functions
 
 while true
 do
+    LASTUPDATE=$(cat $LAST_PATH)
     TMPTIMESTAMP=$(checkRepos)
     GETTIMESTAMP=$(utc2JST)
     if test $LASTUPDATE -lt $GETTIMESTAMP; then
         deployment
+	composer
         echo $GETTIMESTAMP > $LAST_PATH
         toIdobata
     fi

@@ -15,5 +15,7 @@ function toIdobata() {
 function deployment() {
     git fetch origin
     git merge origin/master
+}
+function composer() {
     composer update --prefer-dist
 }
